@@ -15,7 +15,7 @@ fn depth_increases(measurements: &[i32]) -> i32 {
 fn sliding_window_depth_increases(measurements: &[i32], window: usize) -> i32 {
     let mut depth_increases = 0;
     for idx in 0..measurements.len() - window {
-        if measurements[idx] < measurements[idx+window] {
+        if measurements[idx] < measurements[idx + window] {
             depth_increases += 1;
         }
     }

@@ -41,7 +41,7 @@ fn plan_course_with_aim(course: &[Direction]) -> i32 {
             Direction::Forward(x) => {
                 horizontal_pos += x;
                 depth += aim * x;
-            },
+            }
             Direction::Up(x) => aim -= x,
             Direction::Down(x) => aim += x,
         }
@@ -49,7 +49,6 @@ fn plan_course_with_aim(course: &[Direction]) -> i32 {
 
     depth * horizontal_pos
 }
-
 
 #[cfg(test)]
 mod tests {
