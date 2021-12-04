@@ -3,25 +3,23 @@ pub const DAY_THREE_INPUT: &str = "puzzle_input.txt";
 pub fn calculate_power_consumption(diagnostics: &[i32], width: usize) -> i32 {
     let mut gamma = 0;
     let mut epsilon = 0;
-    let mut one_count = vec![0; width];
-    let mut zero_count = vec![0; width];
-    for x in diagnostics {
-        let mut z = 1;
-        for i in 0..width {
-            if z & x == z {
-                one_count[i] += 1;
+
+    for i in (0..width).rev() {
+        let mut one_count = 1;
+        let mut zero_count = 1;
+        for x in diagnostics {
+            let z = x >> i;
+            if z & 1 == 1 {
+                one_count += 1;
             } else {
-                zero_count[i] += 1;
+                zero_count += 1;
             }
-
-            z = z << 1;
         }
-    }
-
-    for i in (0..one_count.len()).rev() {
+        
         gamma = gamma << 1;
         epsilon = epsilon << 1;
-        if one_count[i] > zero_count[i] {
+
+        if one_count > zero_count {
             gamma = gamma | 1;
         } else {
             epsilon = epsilon | 1;
