@@ -1,6 +1,6 @@
-const DAY_THREE_INPUT: &str = "puzzle_input.txt";
+pub const DAY_THREE_INPUT: &str = "puzzle_input.txt";
 
-fn calculate_power_consumption(diagnostics: &[i32], width: usize) -> i32 {
+pub fn calculate_power_consumption(diagnostics: &[i32], width: usize) -> i32 {
     let mut gamma = 0;
     let mut epsilon = 0;
     let mut one_count = vec![0; width];
@@ -18,23 +18,20 @@ fn calculate_power_consumption(diagnostics: &[i32], width: usize) -> i32 {
         }
     }
 
-    let mut z = 1;
     for i in (0..one_count.len()).rev() {
         gamma = gamma << 1;
         epsilon = epsilon << 1;
         if one_count[i] > zero_count[i] {
-            gamma = gamma | z;
+            gamma = gamma | 1;
         } else {
-            epsilon = epsilon | z;
+            epsilon = epsilon | 1;
         }
-        println!("gamma: {:#b}", gamma);
-        println!("epsilon: {:#b}", epsilon);
     }
 
     gamma * epsilon
 }
 
-fn calculate_life_system(diagnostics: &[i32], width: usize) -> i32 {
+pub fn calculate_life_system(diagnostics: &[i32], width: usize) -> i32 {
     let mut oxygen_list = diagnostics.to_owned();
     for i in (0..width).rev() {
         let mut zero_count = 0;
@@ -52,8 +49,6 @@ fn calculate_life_system(diagnostics: &[i32], width: usize) -> i32 {
         }
 
         let counter = 1 << i;
-        println!("i: {:#b}", i);
-        println!("counter: {:#b}", counter);
 
         if one_count > zero_count {
             oxygen_list = oxygen_list
@@ -82,8 +77,7 @@ fn calculate_life_system(diagnostics: &[i32], width: usize) -> i32 {
         }
 
         for x in &co2_list {
-            let mut y = x >> i;
-            println!("y: {:#b}", x);
+            let y = x >> i;
             if y & 1 == 1 {
                 one_count += 1;
             } else {
